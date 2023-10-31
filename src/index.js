@@ -1,35 +1,46 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
-import { Provider } from 'unstated'
+import React from "react";
+import ReactDOM from "react-dom";
 
-import Header from './pages/common/Header'
-import About from './pages/about'
-//import Subreddit from './pages/subreddit'
-import Thread from './pages/thread'
-import NotFound from './pages/404'
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { Provider } from "unstated";
 
-/* global __dirname */  // an eslint directive
+import Header from "./pages/common/Header";
+import About from "./pages/about";
+import Subreddit from "./pages/subreddit";
+import Thread from "./pages/thread";
+import NotFound from "./pages/404";
+
+/* global __dirname */ // an eslint directive
 
 ReactDOM.render(
   <Provider>
     <BrowserRouter basename={__dirname}>
       <React.Fragment>
         <Header />
-        <div className='main'>
+        <div className="main">
           <Switch>
-            <Route exact path='/' component={About} />
-            <Route path='/about' component={About} />
-            <Route path='/r/:subreddit/comments/:threadID/:junk/:commentID' component={Thread} />
-            <Route path='/r/:subreddit/comments/:threadID' component={Thread} />
-            <Redirect from='/user/:username/comments/:threadID/:junk/:commentID'
-                      to='/r/u_:username/comments/:threadID/:junk/:commentID' />
-            <Redirect from='/user/:username/comments/:threadID' to='/r/u_:username/comments/:threadID' />
+            <Route exact path="/" component={About} />
+            <Route path="/about" component={About} />
+            <Route
+              path="/r/:subreddit/comments/:threadID/:junk/:commentID"
+              component={Thread}
+            />
+            <Route path="/r/:subreddit/comments/:threadID" component={Thread} />
+            <Route path="/r/:subreddit" component={Subreddit} />
+
+            <Redirect
+              from="/user/:username/comments/:threadID/:junk/:commentID"
+              to="/r/u_:username/comments/:threadID/:junk/:commentID"
+            />
+            <Redirect
+              from="/user/:username/comments/:threadID"
+              to="/r/u_:username/comments/:threadID"
+            />
             <Route component={NotFound} />
           </Switch>
         </div>
       </React.Fragment>
     </BrowserRouter>
   </Provider>,
-  document.getElementById('app')
-)
+  document.getElementById("app")
+);
